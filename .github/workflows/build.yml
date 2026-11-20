@@ -1,0 +1,42 @@
+# Builds the extension zip on every push and pull request; a v* tag also
+# publishes it as a GitHub release (the zip to upload to extensions.gnome.org).
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the JSON files
+        run: |
+          python3 -I -m json.tool metadata.json > /dev/null
+          python3 -I -c 'import json; d = json.load(open("translations.json")); assert d["pause"] and d["resume"]'
+
+      - name: Pack
+        run: ./build.sh pack
+        env:
+          # On a release tag, show it as the version (e.g. "v1") on
+          # extensions.gnome.org and in the Extensions app
+          VERSION_NAME: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: extension
+          path: dist/nextcloud-qs*.zip
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/nextcloud-qs*.zip
+          generate_release_notes: true

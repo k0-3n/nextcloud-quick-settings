@@ -1,0 +1,9 @@
+{
+  "uuid": "nextcloud-quick-settings@k0-3n.github.io",
+  "name": "Nextcloud QS",
+  "description": "Nextcloud desktop client in Quick Settings: a tile that shows the sync state and pauses or resumes sync, the client's own menu, and a top bar icon with the client's own state icons.\n\nWorks with the Nextcloud client from your distribution or Flathub (CloudProviders). Nextcloud's own AppImage also needs an extension that provides tray icons, such as AppIndicator Support.",
+  "shell-version": [
+    "51"
+  ],
+  "url": "https://github.com/k0-3n/nextcloud-quick-settings"
+}

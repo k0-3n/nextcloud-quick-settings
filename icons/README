@@ -1,0 +1,5 @@
+Tray state icons of the Nextcloud desktop client, unchanged apart from the
+file names (the "-symbolic" suffix lets GNOME recolour them).
+
+Source:  https://github.com/nextcloud/desktop/tree/master/theme/black/nextcloud
+License: GPL-2.0 (same as the Nextcloud desktop client)
